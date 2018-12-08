@@ -1,6 +1,7 @@
 ## Local Envs Web Gateway
 
-Very small container with traefik set up to serve multiple local envs.
+Very small container with traefik set up to serve multiple local envs. Adapted
+from https://www.michaelpporter.com/2017/11/setting-up-docker4drupal-with-multiple-projects-on-mac-redo/
 
 Usage:
 
