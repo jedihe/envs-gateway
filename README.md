@@ -13,13 +13,13 @@ cd traefik
 docker-compose up -d
 ```
 
-Notice that the previous step also created the 'traefik_webgateway' network
+Notice that the previous step also created the 'traefik' network
 (bridge mode). The traefik container is set to be running always (unless it's
 explicitly stopped).
 
 Next, update every env docker-compose.yml file to connect the web/app service
-to the traefik_webgateway network, but make sure they still can communicate
-with any back-end service (e.g. db):
+to the traefik network, but make sure they still can communicate with any
+back-end service (e.g. db):
 
 
 ```
@@ -31,6 +31,11 @@ services:
     networks:
       - web
       - backend
+    labels:
+      - 'traefik.backend=acme_1'
+      - 'traefik.port=80'
+      - 'traefik.frontend.rule=Host:local.acme.com'
+      - 'traefik.docker.network=traefik'
 
   db:
     image: mysql:5.5
@@ -44,6 +49,6 @@ services:
 networks:
   web:
     external:
-      name: traefik_webgateway
+      name: traefik
   backend:
 ```
